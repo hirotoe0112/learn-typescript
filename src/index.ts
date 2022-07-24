@@ -208,3 +208,17 @@ let sample2:Sample<1, 2> = {
   prop2: 2,
   prop3: 'bbb'
 }
+
+//ジェネリック型の引数のデフォルト値
+type Sample2<T = number, U = string> = {
+  prop1: T
+  prop2: U
+}
+let sample2_1: Sample2 = {
+  prop1:10,
+  prop2:'bbb'
+}
+let sample2_2: Sample2<boolean, number> = {
+  prop1:true,
+  prop2:111
+}
