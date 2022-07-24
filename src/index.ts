@@ -201,3 +201,10 @@ let sample:Sample<number, boolean> = {
   prop2: true,
   prop3: 'aaa'
 }
+
+//ジェネリック型の引数はリテラル型でもOK
+let sample2:Sample<1, 2> = {
+  prop1: 1,
+  prop2: 2,
+  prop3: 'bbb'
+}
