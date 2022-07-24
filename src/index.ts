@@ -67,6 +67,7 @@ function fancyDate(this: Date){
 
 console.log(fancyDate.apply(new Date))
 
+//ジェネレータ
 function* createLoopMonth(){
   let month = 1
   while(true){
@@ -114,6 +115,7 @@ console.log(monthGenerator.next().value)
 console.log(monthGenerator.next().value)
 console.log(monthGenerator.next().value)
 
+//イテレータ
 let numbers = {
   *[Symbol.iterator](){
     for(let n = 1; n <= 10; n++){
@@ -132,3 +134,70 @@ console.log(allNumbers);
 let [one, two, three, four, ...rest] = numbers
 console.log(one);
 console.log(four);
+
+const strarray = ['a', 'b', 'c', 'd']
+let [iti, ni, ...resta] = strarray
+
+//ジェネリックの宣言(1)
+type Filter = {
+  <T>(array: T[], f:(item: T) => boolean):T[]
+}
+let filter: Filter = (array, f) => {
+  let result: typeof array = []
+  array.forEach((value)=>{
+    if(f(value)){
+      result.push(value)
+    }
+  })
+  return result
+}
+//メソッド宣言の時点で型を指定していないためどっちでもOK
+//メソッドを呼び出すときに型がバインドされる
+const filterResult = filter([1, 2, 3], (item) => item > 3)
+const filterResult2 = filter(['a', 'b', 'c'], (item) => item == 'a')
+
+//ジェネリックの宣言(2)
+type Filter2<T> = {
+  (array: T[], f:(item: T) => boolean): T[]
+}
+let filter2: Filter2<number> = (array, f) => {
+  let result: typeof array = []
+  array.forEach((value)=>{
+    if(f(value)){
+      result.push(value)
+    }
+  })
+  return result
+}
+//メソッドを宣言するときに型がバインドされる
+const filter2Result = filter2([1, 2, 3], (item) => item > 3)
+//↓これはダメ
+//const filter2Result2 = filter2(['a', 'b', 'c'], (item) => item == 'a')
+
+//ジェネリックの宣言(3)
+function filter3<T>(array: T[], f: (item:T) => boolean): T[]{
+  let result: typeof array = []
+  array.forEach((value)=>{
+    if(f(value)){
+      result.push(value)
+    }
+  })
+  return result
+}
+//メソッドを呼び出すたびに型がバインドされる
+const filter3Result = filter3([1, 2, 3, -1, 4, -9, 5], (item) => item > 0)
+const filter3Result2 = filter3<number>([1, 2, 3, -1, 4, -9, 5], (item) => item > 0)
+
+//型エイリアスのジェネリック型
+type Sample<T, U> = {
+  prop1: T
+  prop2: U
+  prop3: string
+}
+
+//型エイリアスはジェネリック型の引数が必要
+let sample:Sample<number, boolean> = {
+  prop1: 1,
+  prop2: true,
+  prop3: 'aaa'
+}
