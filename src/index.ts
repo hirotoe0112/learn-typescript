@@ -222,3 +222,66 @@ let sample2_2: Sample2<boolean, number> = {
   prop1:true,
   prop2:111
 }
+
+//練習問題
+type Reservation = {
+  result: boolean
+}
+type Reserve = {
+  (from: Date, to: Date, destination: string):Reservation
+  (from: Date, destination: string):Reservation
+  (destination: string):Reservation
+}
+let reserve: Reserve = (
+  fromOrDestination: Date | string,
+  toOrDestination?: Date | string,
+  destination?: string
+) => {
+  if(typeof fromOrDestination === 'string'){
+    //すぐに出発する旅行
+    console.log('すぐに出発する旅行')
+    return {result:true}
+  }else if(toOrDestination instanceof Date && destination !== undefined){
+    //宿泊旅行
+    console.log('宿泊旅行')
+    return {result:true}
+  }else if(typeof toOrDestination === 'string'){
+    //日帰り旅行
+    console.log('日帰り旅行')
+    return {result:true}
+  }
+  return {result:false}
+}
+reserve('ホノルル')
+reserve(new Date, 'ホノルル')
+reserve(new Date, new Date, 'ホノルル')
+
+function call<T extends [unknown, string, ...unknown[]], R>(
+  f: (...args: T) => R,
+  ...args: T
+):R {
+  return f(...args)
+}
+function fill(length: number, value: string): string[]{
+  return Array.from({length}, () => value)
+}
+call(fill, 10, 'a')
+//call(fill, 10, 11)
+
+type Is<T> = {
+  (a: T, ...params:T[]): boolean
+}
+function is<T>(a: T, ...params: [T, ...T[]]):boolean{
+  return params.every((value) => value === a)
+}
+console.log(is('string', 'string'))
+console.log(is(true, true))
+console.log(is(42, 42))
+console.log(is('string', 'otherstring'))
+console.log(is(true, false))
+//オブジェクトは比較できない
+console.log(is(new Date, new Date))
+//console.log(is(19, 'foo'))
+console.log(is([1], [1, 2], [1, 2, 3]))
+//オブジェクトは比較できない
+console.log(is([1, 2], [1, 2], [1, 2]))
