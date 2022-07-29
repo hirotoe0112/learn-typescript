@@ -81,3 +81,14 @@ let A1instance:A1 = {
     return ''
   }
 }
+
+//でも矛盾してはいけない
+interface B1{
+  age: number
+}
+interface B1{
+  //age: string
+}
+interface B1{
+  age: number
+}
