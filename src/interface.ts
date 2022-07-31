@@ -69,6 +69,7 @@ interface B1 extends A1{
 //インタフェースは同じ名前が存在すると自動的にマージされる
 interface A1{
   neutral(x: number): string
+  readonly name: string
 }
 let A1instance:A1 = {
   good(x:number): string{
@@ -79,8 +80,10 @@ let A1instance:A1 = {
   },
   neutral(x: number): string{
     return ''
-  }
+  },
+  name: 'aaa'
 }
+//A1instance.name = 'bbb'
 
 //でも矛盾してはいけない
 interface B1{
@@ -92,3 +95,30 @@ interface B1{
 interface B1{
   age: number
 }
+
+//インタフェースの実装
+class A1Class implements A1{
+  good(x:number): string{
+    return ''
+  }
+  bad(x: number): string{
+    return ''
+  }
+  neutral(x: number): string{
+    return ''
+  }
+  name = 'ccc'
+}
+
+class WariateA{
+  private x = 1
+}
+class WariateB extends WariateA{
+
+}
+function wariateF(a: WariateA){}
+wariateF(new WariateA)
+wariateF(new WariateB)
+//1という文字列リテラルのxというプロパティを持っているという意味でWariateAと同じ構造だが
+//WariateAはプライベートでこれはパブリックなので、これはエラーとなる
+//wariateF({x: 1})
