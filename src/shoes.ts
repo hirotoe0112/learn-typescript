@@ -27,5 +27,20 @@ let Shoe = {
   }
 }
 
+type ShoeFactory = {
+  create(type: 'balletFlat'): BalletFlat
+  create(type: 'boot'): Boot
+  create(type: 'sneaker'): Sneaker
+}
+let Shoe2: ShoeFactory = {
+  create(type: 'balletFlat' | 'boot' | 'sneaker'): Shoe {
+    switch(type) {
+      case 'balletFlat': return new BalletFlat
+      case 'boot': return new Boot
+      case 'sneaker': return new Sneaker
+    }
+  }
+}
+
 let ballet = Shoe.create('balletFlat')
 console.log(ballet.purpose)

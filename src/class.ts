@@ -33,3 +33,14 @@ class MessageQueue{
 //let q = new MessageQueue([])
 //代わりに、createメソッドを実装し、このようにする
 let q = MessageQueue.create([])
+
+class Rensyu5 {
+  protected constructor() {}
+  static create(): Rensyu5 {
+    return new Rensyu5
+  }
+}
+let re = Rensyu5.create()
+class Rensyu5_1 extends Rensyu5{
+}
+//let re2 = new Rensyu5_1()
