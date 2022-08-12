@@ -44,3 +44,16 @@ let re = Rensyu5.create()
 class Rensyu5_1 extends Rensyu5{
 }
 //let re2 = new Rensyu5_1()
+
+function function1(a: string[]): void{
+
+}
+var annnny = [1, 'a']
+//function1(annnny)
+
+//これをチェックするにはtsconfig.jsonのnoImplicitReturnsフラグをONにする
+function isBig(n: number) {
+  if(n >= 100){
+    return true
+  }
+}
