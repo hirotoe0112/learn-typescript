@@ -52,8 +52,8 @@ var annnny = [1, 'a']
 //function1(annnny)
 
 //これをチェックするにはtsconfig.jsonのnoImplicitReturnsフラグをONにする
-function isBig(n: number) {
-  if(n >= 100){
-    return true
-  }
-}
+//function isBig(n: number) {
+//  if(n >= 100){
+//    return true
+//  }
+//}
